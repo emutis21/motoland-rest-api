@@ -14,7 +14,7 @@ app.use(
         'http://localhost:5173',
         'http://localhost:1221',
         'http://localhost:8080',
-        'https://emutis21.github.io/motoland/',
+        'https://motoland.vercel.app/',
       ]
 
       if (ACCEPTED_ORIGINS.includes(origin)) {
