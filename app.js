@@ -14,7 +14,7 @@ app.use(
         'http://localhost:5173',
         'http://localhost:1221',
         'http://localhost:8080',
-        'https://motoland.vercel.app/',
+        'https://motoland.vercel.app',
       ]
 
       if (ACCEPTED_ORIGINS.includes(origin)) {
