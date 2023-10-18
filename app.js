@@ -1,12 +1,15 @@
-const express = require('express')
-const crypto = require('node:crypto')
-const cors = require('cors')
+import cors from 'cors'
+import express, { json } from 'express'
+import { randomUUID } from 'node:crypto'
 
+import { validateMoto, validatePartialMoto } from './schemas/motos.js'
+
+import { createRequire } from 'node:module'
+const require = createRequire(import.meta.url)
 const motos = require('./motos.json')
-const { validateMoto, validatePartialMoto } = require('./schemas/motos')
 
 const app = express()
-app.use(express.json())
+app.use(json())
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -60,7 +63,7 @@ app.post('/motos', (req, res) => {
   }
 
   const newMoto = {
-    id: crypto.randomUUID(),
+    id: randomUUID(),
     ...result.data,
   }
 

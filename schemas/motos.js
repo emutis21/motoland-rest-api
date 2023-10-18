@@ -1,4 +1,4 @@
-const z = require('zod')
+import z from 'zod'
 
 const motoSchema = z.object({
   img: z
@@ -68,12 +68,10 @@ const motoSchema = z.object({
     .max(350),
 })
 
-function validateMoto(input) {
+export function validateMoto(input) {
   return motoSchema.safeParse(input)
 }
 
-function validatePartialMoto(input) {
+export function validatePartialMoto(input) {
   return motoSchema.partial().safeParse(input)
 }
-
-module.exports = { validateMoto, validatePartialMoto }
