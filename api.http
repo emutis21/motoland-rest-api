@@ -1,0 +1,34 @@
+GET http://localhost:1221/motos
+
+GET http://localhost:1221/motos/1
+ 
+GET http://localhost:1221/motos?brand=ktm
+
+GET http://localhost:1221/motos?city=cúcuta
+
+GET http://localhost:1221/motos?color=orange
+
+POST http://localhost:1221/motos
+Content-Type: application/json
+
+{
+  "img": "https://raw.githubusercontent.com/pac13/motos-img/master/ninja-300.png",
+  "model": "Ninja 300",
+  "description": "Description about motorcycle...",
+  "city": ["Bogotá"],
+  "brand": ["Kawasaki"],
+  "price": 1500,
+  "new": true,
+  "year": 2021,
+  "color": ["green", "black", "gray"],
+  "velMax": 180
+}
+
+PATCH  http://localhost:1221/motos/1
+Content-Type: application/json
+
+{
+  "year": 2020
+}
+
+DELETE http://localhost:1221/motos/3
