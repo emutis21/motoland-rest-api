@@ -2,7 +2,7 @@
 GET http://localhost:1221/motos
 
 ### por id
-GET http://localhost:1221/motos/1
+GET http://localhost:1221/motos/2
 
 ### por marca
 GET http://localhost:1221/motos?brand=ktm
@@ -35,8 +35,8 @@ PATCH  http://localhost:1221/motos/1
 Content-Type: application/json
 
 {
-  "year": 2024
+  "year": 2014
 }
 
 ###
-DELETE http://localhost:1221/motos/acb2379f-9b61-4457-9ca1-e002fa52a900
+DELETE http://localhost:1221/motos/2

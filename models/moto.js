@@ -6,11 +6,23 @@ const motos = readJSON('./motos.json')
 export class MotoModel {
   static async getAll ({ brand, city, color }) {
     if (brand) {
-      return motos.filter((moto) => moto.brand.toLowerCase() === brand.toLowerCase())
+      return motos.filter((moto) => {
+        if (typeof moto.brand === 'string') {
+          return moto.brand.toLowerCase() === brand.toLowerCase()
+        }
+        return false
+      })
     }
+
     if (city) {
-      return motos.filter((moto) => moto.city.toLowerCase() === city.toLowerCase())
+      return motos.filter((moto) => {
+        if (typeof moto.city === 'string') {
+          return moto.city.toLowerCase() === city.toLowerCase()
+        }
+        return false
+      })
     }
+
     if (color) {
       return motos.filter((moto) => moto.color.includes(color))
     }
@@ -19,7 +31,7 @@ export class MotoModel {
   }
 
   static async getById ({ id }) {
-    const moto = motos.find((moto) => moto.id == id)
+    const moto = motos.find((moto) => moto.id === id)
     return moto
   }
 
@@ -35,7 +47,7 @@ export class MotoModel {
   }
 
   static async delete ({ id }) {
-    const motoIndex = motos.findIndex((moto) => moto.id == id)
+    const motoIndex = motos.findIndex((moto) => moto.id === id)
 
     if (motoIndex === -1) return false
 
@@ -45,7 +57,7 @@ export class MotoModel {
   }
 
   static async update ({ id, input }) {
-    const motoIndex = motos.findIndex(movie => movie.id == id)
+    const motoIndex = motos.findIndex(movie => movie.id === id)
     if (motoIndex === -1) return false
 
     motos[motoIndex] = {

@@ -28,7 +28,6 @@ export class MotoController {
 
   static async delete (req, res) {
     const { id } = req.params
-
     const result = await MotoModel.delete({ id })
 
     if (result === false) {
@@ -46,9 +45,7 @@ export class MotoController {
     }
 
     const { id } = req.params
-
     const updatedMoto = await MotoModel.update({ id, input: result.data })
-
     return res.json(updatedMoto)
   }
 }
