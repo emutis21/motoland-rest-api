@@ -1,14 +1,19 @@
-
+### motos-api
 GET http://localhost:1221/motos
 
+### por id
 GET http://localhost:1221/motos/1
- 
+
+### por marca
 GET http://localhost:1221/motos?brand=ktm
 
+### por ciudad
 GET http://localhost:1221/motos?city=cúcuta
 
+### por color
 GET http://localhost:1221/motos?color=orange
 
+### creamos una moto con POST
 POST http://localhost:1221/motos
 Content-Type: application/json
 
@@ -25,11 +30,13 @@ Content-Type: application/json
   "velMax": 180
 }
 
+###
 PATCH  http://localhost:1221/motos/1
 Content-Type: application/json
 
 {
-  "year": 2020
+  "year": 2024
 }
 
-DELETE http://localhost:1221/motos/3
+###
+DELETE http://localhost:1221/motos/acb2379f-9b61-4457-9ca1-e002fa52a900

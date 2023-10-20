@@ -4,10 +4,10 @@ const ACCEPTED_ORIGINS = [
   'http://localhost:5173',
   'http://localhost:1221',
   'http://localhost:8080',
-  'https://motoland.vercel.app',
+  'https://motoland.vercel.app'
 ]
 
-export const corsMiddleware = ({ acceptedOrigins = ACCEPTED_ORIGINS } = {} ) => {
+export const corsMiddleware = ({ acceptedOrigins = ACCEPTED_ORIGINS } = {}) => {
   cors({
     origin: (origin, callback) => {
       if (acceptedOrigins.includes(origin)) {
@@ -19,6 +19,6 @@ export const corsMiddleware = ({ acceptedOrigins = ACCEPTED_ORIGINS } = {} ) => 
       }
 
       return callback(new Error('Not allowed by CORS'))
-    },
+    }
   })
 }
