@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto'
-import { readJSON } from '../utils.js'
+import { readJSON } from '../../utils/utils.js'
 
-const motos = readJSON('./motos.json')
+const motos = readJSON('../../db/motos.json')
 
 export class MotoModel {
   static async getAll ({ brand, city, color }) {
@@ -57,7 +57,7 @@ export class MotoModel {
   }
 
   static async update ({ id, input }) {
-    const motoIndex = motos.findIndex(movie => movie.id === id)
+    const motoIndex = motos.findIndex((movie) => movie.id === id)
     if (motoIndex === -1) return false
 
     motos[motoIndex] = {

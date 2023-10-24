@@ -35,8 +35,8 @@ PATCH  http://localhost:1221/motos/1
 Content-Type: application/json
 
 {
-  "year": 2014
+  "year": 2024
 }
 
 ###
-DELETE http://localhost:1221/motos/2
+DELETE http://localhost:1221/motos/e4e44be1-4b13-4614-88cb-418b64761c0b

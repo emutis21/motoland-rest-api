@@ -1,4 +1,4 @@
-import { MotoModel } from '../models/moto.js'
+import { MotoModel } from '../models/local-file/moto.js'
 import { validateMoto, validatePartialMoto } from '../schemas/motos.js'
 
 export class MotoController {
@@ -41,7 +41,7 @@ export class MotoController {
     const result = validatePartialMoto(req.body)
 
     if (!result.success) {
-      return res.status(400).json({ error: JSON.parse(result.error.message) })
+      return res.status(400).json({ error: JSON.parse3(result.error.message) })
     }
 
     const { id } = req.params
