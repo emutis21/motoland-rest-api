@@ -2,13 +2,13 @@
 GET http://localhost:1221/motos
 
 ### por id
-GET http://localhost:1221/motos/2
+GET http://localhost:1221/motos/cba9a49d-73b3-11ee-8f01-900f0c2fe266
 
 ### por marca
-GET http://localhost:1221/motos?brand=ktm
+GET http://localhost:1221/motos?brand=kawasaki
 
 ### por ciudad
-GET http://localhost:1221/motos?city=cúcuta
+GET http://localhost:1221/motos?city=tunja
 
 ### por color
 GET http://localhost:1221/motos?color=orange
@@ -18,25 +18,25 @@ POST http://localhost:1221/motos
 Content-Type: application/json
 
 {
-  "img": "https://raw.githubusercontent.com/pac13/motos-img/master/ninja-300.png",
-  "model": "Ninja 300",
+  "img": "https://raw.githubusercontent.com/pac13/motos-img/master/mt-03.png",
+  "model": "Mt 03",
   "description": "Description about motorcycle...",
   "city": ["Bogotá"],
-  "brand": ["Kawasaki"],
-  "price": 1500,
+  "brand": ["Yamaha"],
+  "price": 1900,
   "new": true,
-  "year": 2021,
-  "color": ["green", "black", "gray"],
+  "year": 2012,
+  "color": ["blue", "black"],
   "velMax": 180
 }
 
 ###
-PATCH  http://localhost:1221/motos/1
+PATCH  http://localhost:1221/motos/99f66521-773a-11ee-b1c2-900f0c2fe266
 Content-Type: application/json
 
 {
-  "year": 2024
+  "year": 2023
 }
 
 ###
-DELETE http://localhost:1221/motos/e4e44be1-4b13-4614-88cb-418b64761c0b
+DELETE http://localhost:1221/motos/99f66521-773a-11ee-b1c2-900f0c2fe266

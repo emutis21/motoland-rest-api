@@ -57,7 +57,7 @@ export class MotoModel {
   }
 
   static async update ({ id, input }) {
-    const motoIndex = motos.findIndex((movie) => movie.id === id)
+    const motoIndex = motos.findIndex((moto) => moto.id === id)
     if (motoIndex === -1) return false
 
     motos[motoIndex] = {
