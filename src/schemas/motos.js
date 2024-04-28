@@ -42,10 +42,13 @@ const motoSchema = z.object({
       invalid_type_error: 'City must be a valid city'
     }
   ),
-  brand: z.array(z.enum(['Kawasaki', 'Yamaha', 'Honda', 'Suzuki', 'BMW', 'Ducati', 'KTM']), {
-    required_error: 'Brand is required',
-    invalid_type_error: 'Brand must be a valid brand'
-  }),
+  brand: z.array(
+    z.enum(['Kawasaki', 'Yamaha', 'Honda', 'Suzuki', 'BMW', 'Ducati', 'KTM']),
+    {
+      required_error: 'Brand is required',
+      invalid_type_error: 'Brand must be a valid brand'
+    }
+  ),
   price: z.number().min(1000).max(12000),
   new: z.boolean(),
   year: z
@@ -55,10 +58,23 @@ const motoSchema = z.object({
     })
     .min(2007)
     .max(2024),
-  color: z.array(z.enum(['green', 'black', 'gray', 'white', 'red', 'blue', 'yellow', 'orange', 'purple']), {
-    required_error: 'Color is required',
-    invalid_type_error: 'Color must be a valid color'
-  }),
+  color: z.array(
+    z.enum([
+      'green',
+      'black',
+      'gray',
+      'white',
+      'red',
+      'blue',
+      'yellow',
+      'orange',
+      'purple'
+    ]),
+    {
+      required_error: 'Color is required',
+      invalid_type_error: 'Color must be a valid color'
+    }
+  ),
   velMax: z
     .number({
       required_error: 'VelMax is required',
@@ -68,10 +84,10 @@ const motoSchema = z.object({
     .max(350)
 })
 
-export function validateMoto (input) {
+export function validateMoto(input) {
   return motoSchema.safeParse(input)
 }
 
-export function validatePartialMoto (input) {
+export function validatePartialMoto(input) {
   return motoSchema.partial().safeParse(input)
 }

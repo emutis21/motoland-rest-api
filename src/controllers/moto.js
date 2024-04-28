@@ -3,7 +3,7 @@
 import { validateMoto, validatePartialMoto } from '../schemas/motos.js'
 
 export class MotoController {
-  constructor ({ motoModel }) {
+  constructor({ motoModel }) {
     this.motoModel = motoModel
   }
 
@@ -35,7 +35,7 @@ export class MotoController {
     const { id } = req.params
     const result = await this.motoModel.delete({ id })
 
-    if (result === false) {
+    if (result === 0) {
       return res.status(404).json({ message: 'Moto not found' })
     }
 

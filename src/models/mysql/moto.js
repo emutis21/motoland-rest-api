@@ -4,14 +4,14 @@ const config = {
   host: 'localhost',
   user: 'root',
   port: 3306,
-  password: 'poloche7',
+  password: '1234',
   database: 'motosdb'
 }
 
 const connection = await mysql.createConnection(config)
 
 export class MotoModel {
-  static async getAll ({ color, city, brand }) {
+  static async getAll({ color, city, brand }) {
     if (brand) {
       const lowerCaseBrand = brand.toLowerCase()
 
@@ -37,7 +37,10 @@ export class MotoModel {
     if (color) {
       const lowerCaseColor = color.toLowerCase()
 
-      const [colors] = await connection.query('SELECT id, name FROM color WHERE LOWER(name) = ?', [lowerCaseColor])
+      const [colors] = await connection.query(
+        'SELECT id, name FROM color WHERE LOWER(name) = ?',
+        [lowerCaseColor]
+      )
 
       if (colors.length === 0) return []
 
@@ -57,7 +60,7 @@ export class MotoModel {
     return motos
   }
 
-  static async getById ({ id }) {
+  static async getById({ id }) {
     const [motos] = await connection.query(
       'SELECT img, model, description, city, brand, price, new, year, velMax, BIN_TO_UUID(id) id FROM moto WHERE id = UUID_TO_BIN(?)',
       [id]
@@ -68,7 +71,7 @@ export class MotoModel {
     return motos[0]
   }
 
-  static async create ({ input }) {
+  static async create({ input }) {
     const {
       color: colorInput,
       img,
@@ -88,17 +91,31 @@ export class MotoModel {
 
       await connection.query(
         'INSERT INTO moto (id, img, model, description, city, brand, price, new, year, velMax) VALUES (UUID_TO_BIN(?), ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-        [uuid, img, model, description, city, brand, price, newMoto, year, velMax]
+        [
+          uuid,
+          img,
+          model,
+          description,
+          city,
+          brand,
+          price,
+          newMoto,
+          year,
+          velMax
+        ]
       )
 
-      const [colors] = await connection.query('SELECT id, name FROM color WHERE name IN (?)', [colorInput])
+      const [colors] = await connection.query(
+        'SELECT id, name FROM color WHERE name IN (?)',
+        [colorInput]
+      )
       const colorIds = colors.map(({ id }) => id)
 
-      const colorPromises = colorIds.map(colorId => {
-        return connection.query('INSERT INTO moto_colors (moto_id, color_id) VALUES (UUID_TO_BIN(?), ?)', [
-          uuid,
-          colorId
-        ])
+      const colorPromises = colorIds.map((colorId) => {
+        return connection.query(
+          'INSERT INTO moto_colors (moto_id, color_id) VALUES (UUID_TO_BIN(?), ?)',
+          [uuid, colorId]
+        )
       })
 
       await Promise.all(colorPromises)
@@ -116,9 +133,12 @@ export class MotoModel {
     }
   }
 
-  static async delete ({ id }) {
+  static async delete({ id }) {
     try {
-      await connection.query('DELETE FROM moto_colors WHERE moto_id = UUID_TO_BIN(?)', [id])
+      await connection.query(
+        'DELETE FROM moto_colors WHERE moto_id = UUID_TO_BIN(?)',
+        [id]
+      )
       await connection.query('DELETE FROM moto WHERE id = UUID_TO_BIN(?)', [id])
       return true
     } catch (e) {
@@ -126,7 +146,7 @@ export class MotoModel {
     }
   }
 
-  static async update ({ id, input }) {
+  static async update({ id, input }) {
     const {
       img,
       model,

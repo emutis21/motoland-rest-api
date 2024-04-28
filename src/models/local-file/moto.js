@@ -4,7 +4,7 @@ import { readJSON } from '../../utils/utils.js'
 const motos = readJSON('../../db/motos.json')
 
 export class MotoModel {
-  static async getAll ({ brand, city, color }) {
+  static async getAll({ brand, city, color }) {
     if (brand) {
       return motos.filter((moto) => {
         if (typeof moto.brand === 'string') {
@@ -30,12 +30,12 @@ export class MotoModel {
     return motos
   }
 
-  static async getById ({ id }) {
+  static async getById({ id }) {
     const moto = motos.find((moto) => moto.id === id)
     return moto
   }
 
-  static async create ({ input }) {
+  static async create({ input }) {
     const newMoto = {
       id: randomUUID(),
       ...input
@@ -46,7 +46,7 @@ export class MotoModel {
     return newMoto
   }
 
-  static async delete ({ id }) {
+  static async delete({ id }) {
     const motoIndex = motos.findIndex((moto) => moto.id === id)
 
     if (motoIndex === -1) return false
@@ -56,7 +56,7 @@ export class MotoModel {
     return true
   }
 
-  static async update ({ id, input }) {
+  static async update({ id, input }) {
     const motoIndex = motos.findIndex((moto) => moto.id === id)
     if (motoIndex === -1) return false
 
