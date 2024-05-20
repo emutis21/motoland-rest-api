@@ -47,14 +47,14 @@ export class MotoModel {
       const [{ id }] = colors
 
       const [motos] = await connection.query(
-        'SELECT m.img, m.model, m.description, m.city, m.brand, m.price, m.new, m.year, m.velMax, BIN_TO_UUID(m.id) AS id FROM moto m JOIN moto_colors mc ON m.id = mc.moto_id JOIN color c ON mc.color_id = c.id WHERE c.id = ?',
+        'SELECT m.img, m.model, m.description, m.city, m.brand, m.price, m.new, m.year, m.velMax, BIN_TO_UUID(m.id) AS id FROM moto m JOIN moto_color mc ON m.id = mc.moto_id JOIN color c ON mc.color_id = c.id WHERE c.id = ?',
         [id]
       )
 
       return motos
     }
     const [motos] = await connection.query(
-      'SELECT img, model, description, city, brand, price, new, year, velMax, BIN_TO_UUID(id) id FROM moto'
+      'SELECT m.img, m.model, m.description, m.city, m.brand, m.price, m.new, m.year, m.velMax, BIN_TO_UUID(m.id) id, GROUP_CONCAT(c.name) AS color FROM moto m LEFT JOIN moto_color mc ON m.id = mc.moto_id LEFT JOIN color c ON mc.color_id = c.id GROUP BY m.id'
     )
 
     return motos
@@ -113,7 +113,7 @@ export class MotoModel {
 
       const colorPromises = colorIds.map((colorId) => {
         return connection.query(
-          'INSERT INTO moto_colors (moto_id, color_id) VALUES (UUID_TO_BIN(?), ?)',
+          'INSERT INTO moto_color (moto_id, color_id) VALUES (UUID_TO_BIN(?), ?)',
           [uuid, colorId]
         )
       })
@@ -121,14 +121,19 @@ export class MotoModel {
       await Promise.all(colorPromises)
 
       const [motos] = await connection.query(
-        'SELECT m.img, m.model, m.description, m.city, m.brand, m.price, m.new, m.year, m.velMax, BIN_TO_UUID(m.id) id, c.name AS color FROM moto m JOIN moto_colors mc ON m.id = mc.moto_id JOIN color c ON mc.color_id = c.id WHERE m.id = UUID_TO_BIN(?)',
+        'SELECT m.img, m.model, m.description, m.city, m.brand, m.price, m.new, m.year, m.velMax, BIN_TO_UUID(m.id) id, c.name AS color FROM moto m JOIN moto_color mc ON m.id = mc.moto_id JOIN color c ON mc.color_id = c.id WHERE m.id = UUID_TO_BIN(?)',
         [uuid]
       )
 
+      if (motos.length === 0) {
+        throw new Error('Moto not found')
+      }
+
       const moto = motos[0]
-      moto.color = colors.map(({ name }) => name)
+      moto.color = colorInput
       return moto
     } catch (e) {
+      console.error(e)
       throw new Error('Error creating moto')
     }
   }
@@ -136,7 +141,7 @@ export class MotoModel {
   static async delete({ id }) {
     try {
       await connection.query(
-        'DELETE FROM moto_colors WHERE moto_id = UUID_TO_BIN(?)',
+        'DELETE FROM moto_color WHERE moto_id = UUID_TO_BIN(?)',
         [id]
       )
       await connection.query('DELETE FROM moto WHERE id = UUID_TO_BIN(?)', [id])
