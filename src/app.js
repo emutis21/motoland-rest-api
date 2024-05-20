@@ -1,15 +1,25 @@
 import express, { json } from 'express'
 
-import { createMotoRouter } from './routes/motos.js'
+import { connectDB } from '../config/db/mongo/index.js'
 import { corsMiddleware } from './middlewares/cors.js'
 
-export const createApp = ({ motoModel }) => {
+import { createAuthRouter } from './routes/auth.routes.js'
+import { createMotoRouter } from './routes/motos.routes.js'
+
+import cookieParser from 'cookie-parser'
+
+export const createApp = async ({ motoModel, authModel }) => {
   const app = express()
+  await connectDB()
+
   app.use(json())
   app.use(corsMiddleware())
+  app.use(cookieParser())
   app.disable('x-powered-by')
 
   app.use('/motos', createMotoRouter({ motoModel }))
+
+  app.use('/api', createAuthRouter({ authModel }))
 
   const PORT = process.env.PORT ?? 1221
 
