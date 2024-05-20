@@ -46,7 +46,7 @@ export class MotoController {
     const result = validatePartialMoto(req.body)
 
     if (!result.success) {
-      return res.status(400).json({ error: JSON.parse3(result.error.message) })
+      return res.status(400).json({ error: JSON.parse(result.error.message) })
     }
 
     const { id } = req.params

@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { MotoController } from '../controllers/moto.js'
+import { MotoController } from '../controllers/moto.controller.js'
 
 export const createMotoRouter = ({ motoModel }) => {
   const motosRouter = Router()
