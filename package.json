@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev:mysql": "node --watch src/server-with-mysql.js",
+    "dev:mongo": "node --watch src/server-with-mongodb.js",
     "start": "node src/app.js",
     "dev:local": "node --watch src/server-with-local.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,9 +16,14 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
     "cors": "2.8.5",
-    "express": "4.18.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.1.0",
+    "mongoose": "^8.4.0",
     "mysql2": "^3.6.2",
     "zod": "3.22.4"
   },
