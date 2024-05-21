@@ -2,7 +2,7 @@
 GET http://localhost:1221/motos
 
 ### por id
-GET http://localhost:1221/motos/cba9a49d-73b3-11ee-8f01-900f0c2fe266
+GET http://localhost:1221/motos/6db2ae56-9abd-411f-be3d-b1f1613db862
 
 ### por marca
 GET http://localhost:1221/motos?brand=kawasaki
@@ -18,20 +18,20 @@ POST http://localhost:1221/motos
 Content-Type: application/json
 
 {
-  "img": "https://raw.githubusercontent.com/pac13/motos-img/master/mt-03.png",
-  "model": "Mt 03",
+  "img": "https://raw.githubusercontent.com/pac13/motos-img/master/mt-07.png",
+  "model": "Mt 07",
   "description": "Description about motorcycle...",
-  "city": ["Bogotá"],
+  "city": ["Medellín"],
   "brand": ["Yamaha"],
-  "price": 1900,
+  "price": 2000,
   "new": true,
-  "year": 2012,
-  "color": ["blue", "black"],
-  "velMax": 180
+  "year": 2022,
+  "color": ["orange", "gray"],
+  "velMax": 250
 }
 
 ###
-PATCH  http://localhost:1221/motos/99f66521-773a-11ee-b1c2-900f0c2fe266
+PATCH  http://localhost:1221/motos/6db2ae56-9abd-411f-be3d-b1f1613db862
 Content-Type: application/json
 
 {
@@ -39,4 +39,30 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:1221/motos/99f66521-773a-11ee-b1c2-900f0c2fe266
+DELETE http://localhost:1221/motos/6db2ae56-9abd-411f-be3d-b1f1613db862
+
+### register
+POST http://localhost:1221/api/register
+Content-Type: application/json
+
+{
+  "username": "emutis27",
+  "email": "smithmutis27@gmail.com",
+  "password": "1234"
+}
+
+### login
+POST http://localhost:1221/api/login
+Content-Type: application/json
+
+{
+  "email": "smithmutis27@gmail.com",
+  "password": "1234"
+}
+
+### logout
+POST http://localhost:1221/api/logout
+
+### get
+GET http://localhost:1221/api/profile
+

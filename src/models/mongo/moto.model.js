@@ -45,8 +45,6 @@ export class MotoModel {
 
     const id = randomUUID()
 
-    console.log(id)
-
     try {
       const createdMoto = await Moto.create({
         id,
@@ -61,8 +59,6 @@ export class MotoModel {
         velMax,
         color: colorInput
       })
-
-      console.log(createdMoto)
 
       return createdMoto
     } catch (error) {
@@ -96,8 +92,6 @@ export class MotoModel {
       year,
       velMax
     } = input
-
-    console.log(id)
 
     try {
       const updatedMoto = await Moto.findOneAndUpdate(
